@@ -1,6 +1,8 @@
-import React from "react"
+import React, { useState } from "react"
 import styled from "styled-components"
 import Board from "./views/Game/Board"
+import Reset from "./views/Reset/Reset"
+import Start from "./views/Start/Start"
 
 const Container = styled.div`
   width: 500px;
@@ -18,10 +20,13 @@ const Container = styled.div`
   }
 `
 
+type GameState = "start" | "game" | "reset"
+
 function XOApp() {
+  const [gameState, setGameState] = useState<GameState>("game")
   return (
     <Container>
-      <Board />
+      {{ start: <Start />, game: <Board />, reset: <Reset /> }[gameState]}
     </Container>
   )
 }
