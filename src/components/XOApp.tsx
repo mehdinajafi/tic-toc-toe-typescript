@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import styled from "styled-components"
-import Board from "./views/Game/Board"
+import Board, { Winner } from "./views/Game/Board"
 import Reset from "./views/Reset/Reset"
 import Start from "./views/Start/Start"
 
@@ -24,9 +24,21 @@ type GameState = "start" | "game" | "reset"
 
 function XOApp() {
   const [gameState, setGameState] = useState<GameState>("game")
+  const [winner, setWinner] = useState<Winner>("")
+
+  const onGameEnd = (winner: Winner) => {
+    setGameState("reset")
+    setWinner(winner)
+  }
   return (
     <Container>
-      {{ start: <Start />, game: <Board />, reset: <Reset /> }[gameState]}
+      {
+        {
+          start: <Start />,
+          game: <Board onGameEnd={onGameEnd} />,
+          reset: <Reset />,
+        }[gameState]
+      }
     </Container>
   )
 }
