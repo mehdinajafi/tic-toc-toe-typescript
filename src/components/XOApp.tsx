@@ -17,6 +17,11 @@ const variants = {
     scale: 1,
     transition: { type: "spring", duration: 1 },
   },
+  reset: {
+    opacity: 1,
+    scale: 1,
+    transition: { type: "spring", duration: 1 },
+  },
   hidden: { opacity: 0, scale: 0 },
 }
 
@@ -52,7 +57,7 @@ type GameState = "start" | "game" | "reset"
 // Component
 function XOApp() {
   const [gameState, setGameState] = useState<GameState>("start")
-  const [, setWinner] = useState<Winner>("")
+  const [winner, setWinner] = useState<Winner>("")
   const onGameStart = () => {
     setGameState("game")
   }
@@ -60,6 +65,11 @@ function XOApp() {
   const onGameEnd = (winner: Winner) => {
     setGameState("reset")
     setWinner(winner)
+  }
+
+  const resetGame = () => {
+    setGameState("game")
+    setWinner("")
   }
   return (
     <React.Fragment>
@@ -69,7 +79,7 @@ function XOApp() {
           {
             start: <Start onGameStart={onGameStart} />,
             game: <Board onGameEnd={onGameEnd} />,
-            reset: <Reset />,
+            reset: <Reset resetGame={resetGame} winner={winner} />,
           }[gameState]
         }
       </Container>
