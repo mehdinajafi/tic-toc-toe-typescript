@@ -28,10 +28,10 @@ const winningConditions = [
 
 // Types
 export type Winner = CellValue | "tie"
-type BoardProps = { onGameEnd(winner: Winner): void }
+type BoardProps = { onGameEnd(winner: Winner): void; winner: Winner }
 
 // Component
-const Board: FC<BoardProps> = ({ onGameEnd }) => {
+const Board: FC<BoardProps> = ({ onGameEnd, winner }) => {
   const [cells, setCells] = useState<CellValue[]>(Array(9).fill(""))
   const [turn, setTurn] = useState<CellValue>("x")
 
@@ -41,12 +41,11 @@ const Board: FC<BoardProps> = ({ onGameEnd }) => {
 
       if (cells[a] && cells[a] === cells[b] && cells[b] === cells[c]) {
         onGameEnd(cells[a])
+      } else if (cells.filter((cell) => cell).length === 9 && !!winner) {
+        onGameEnd("tie")
       }
     }
-    if (cells.filter((cell) => cell).length === 9) {
-      onGameEnd("tie")
-    }
-  }, [turn, cells, onGameEnd])
+  }, [turn, cells, winner, onGameEnd])
 
   const toggleCell = (cellIndex: number) => {
     if (cells[cellIndex] === "") {

@@ -78,7 +78,7 @@ function XOApp() {
         {
           {
             start: <Start onGameStart={onGameStart} />,
-            game: <Board onGameEnd={onGameEnd} />,
+            game: <Board onGameEnd={onGameEnd} winner={winner} />,
             reset: <Reset resetGame={resetGame} winner={winner} />,
           }[gameState]
         }
