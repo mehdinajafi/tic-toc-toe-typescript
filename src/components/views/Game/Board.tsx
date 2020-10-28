@@ -2,12 +2,21 @@ import React, { FC, useEffect, useState } from "react"
 import styled from "styled-components"
 import Cell, { CellValue } from "./Cell"
 
+// Styles
 const BoardWrapper = styled.div`
   display: grid;
   grid-template-columns: 33.33% 33.33% 33.33%;
   grid-template-rows: 33.33% 33.33% 33.33%;
-  width: 100%;
-  height: 100%;
+  width: 500px;
+  height: 500px;
+  @media (max-width: 680px) {
+    width: 300px;
+    height: 300px;
+  }
+  @media (max-width: 360px) {
+    width: 200px;
+    height: 200px;
+  }
 `
 
 // prettier-ignore
@@ -17,9 +26,11 @@ const winningConditions = [
   [0,4,8], [2,4,6] // Diagonal
 ]
 
+// Types
 export type Winner = CellValue | "tie"
 type BoardProps = { onGameEnd(winner: Winner): void }
 
+// Component
 const Board: FC<BoardProps> = ({ onGameEnd }) => {
   const [cells, setCells] = useState<CellValue[]>(Array(9).fill(""))
   const [turn, setTurn] = useState<CellValue>("x")

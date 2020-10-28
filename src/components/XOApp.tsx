@@ -8,39 +8,35 @@ import Start from "./views/Start/Start"
 // Start styles
 const variants = {
   game: {
-    background: "#fff",
     opacity: 1,
-    scale: 1,
-    width: "500px",
-    height: "500px",
-    transition: { type: "spring", duration: 0.8 },
+    scale: 1.1,
+    transition: { type: "spring", duration: 0.5 },
   },
   start: {
-    background: "transparent",
     opacity: 1,
     scale: 1,
-    width: "200px",
-    height: "100px",
-    transition: { type: "spring", duration: 0.8 },
+    transition: { type: "spring", duration: 1 },
   },
-  hidden: { opacity: 0, scale: 0.8 },
+  hidden: { opacity: 0, scale: 0 },
 }
 
 const Container = styled(motion.div).attrs(() => ({
   initial: "hidden",
   variants,
 }))`
+  background: rgb(255, 255, 255);
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 1em;
-  padding: 1em;
+  padding: 0.5em;
 `
 
 const AppTitle = styled.div`
   color: #fff;
   font-size: 5em;
   font-weight: 700;
+  margin-bottom: 0.5em;
   @media (max-width: 680px) {
     font-size: 4em;
   }
@@ -50,10 +46,10 @@ const AppTitle = styled.div`
 `
 // End styles
 
-// types
+// Types
 type GameState = "start" | "game" | "reset"
 
-//component
+// Component
 function XOApp() {
   const [gameState, setGameState] = useState<GameState>("start")
   const [, setWinner] = useState<Winner>("")
